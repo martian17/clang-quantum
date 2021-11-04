@@ -1,0 +1,274 @@
+	.text
+	.file	"resize.c"
+	.globl	new_vecint              # -- Begin function new_vecint
+	.p2align	4, 0x90
+	.type	new_vecint,@function
+new_vecint:                             # @new_vecint
+	.cfi_startproc
+# %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$64, %rsp
+	movq	%rdi, %rax
+	movq	%rsi, -8(%rbp)
+	movq	%rdx, -16(%rbp)
+	movq	-16(%rbp), %rcx
+	shrq	$2, %rcx
+	movq	%rcx, -24(%rbp)
+	movq	-24(%rbp), %rcx
+	shlq	$1, %rcx
+	movq	%rcx, -32(%rbp)
+	movq	-32(%rbp), %rcx
+	shlq	$2, %rcx
+	movq	%rdi, -56(%rbp)         # 8-byte Spill
+	movq	%rcx, %rdi
+	movq	%rax, -64(%rbp)         # 8-byte Spill
+	callq	malloc
+	movq	%rax, -40(%rbp)
+	movq	$0, -48(%rbp)
+.LBB0_1:                                # =>This Inner Loop Header: Depth=1
+	movq	-48(%rbp), %rax
+	cmpq	-24(%rbp), %rax
+	jae	.LBB0_4
+# %bb.2:                                #   in Loop: Header=BB0_1 Depth=1
+	movq	-8(%rbp), %rax
+	movq	-48(%rbp), %rcx
+	movl	(%rax,%rcx,4), %edx
+	movq	-40(%rbp), %rax
+	movq	-48(%rbp), %rcx
+	movl	%edx, (%rax,%rcx,4)
+# %bb.3:                                #   in Loop: Header=BB0_1 Depth=1
+	movq	-48(%rbp), %rax
+	addq	$1, %rax
+	movq	%rax, -48(%rbp)
+	jmp	.LBB0_1
+.LBB0_4:
+	movq	-32(%rbp), %rax
+	movq	-56(%rbp), %rcx         # 8-byte Reload
+	movq	%rax, (%rcx)
+	movq	-24(%rbp), %rax
+	movq	%rax, 8(%rcx)
+	movq	-40(%rbp), %rax
+	movq	%rax, 16(%rcx)
+	movq	-64(%rbp), %rax         # 8-byte Reload
+	addq	$64, %rsp
+	popq	%rbp
+	.cfi_def_cfa %rsp, 8
+	retq
+.Lfunc_end0:
+	.size	new_vecint, .Lfunc_end0-new_vecint
+	.cfi_endproc
+                                        # -- End function
+	.globl	vecint_push_back        # -- Begin function vecint_push_back
+	.p2align	4, 0x90
+	.type	vecint_push_back,@function
+vecint_push_back:                       # @vecint_push_back
+	.cfi_startproc
+# %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$48, %rsp
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	addq	$1, %rax
+	movq	-8(%rbp), %rcx
+	cmpq	(%rcx), %rax
+	jb	.LBB1_6
+# %bb.1:
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	shlq	$1, %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, (%rcx)
+	movq	-8(%rbp), %rax
+	movq	16(%rax), %rax
+	movq	%rax, -24(%rbp)
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	shlq	$2, %rax
+	movq	%rax, %rdi
+	callq	malloc
+	movq	%rax, -32(%rbp)
+	movq	$0, -40(%rbp)
+.LBB1_2:                                # =>This Inner Loop Header: Depth=1
+	movq	-40(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	cmpq	8(%rcx), %rax
+	jae	.LBB1_5
+# %bb.3:                                #   in Loop: Header=BB1_2 Depth=1
+	movq	-24(%rbp), %rax
+	movq	-40(%rbp), %rcx
+	movl	(%rax,%rcx,4), %edx
+	movq	-32(%rbp), %rax
+	movq	-40(%rbp), %rcx
+	movl	%edx, (%rax,%rcx,4)
+# %bb.4:                                #   in Loop: Header=BB1_2 Depth=1
+	movq	-40(%rbp), %rax
+	addq	$1, %rax
+	movq	%rax, -40(%rbp)
+	jmp	.LBB1_2
+.LBB1_5:
+	movq	-32(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, 16(%rcx)
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	callq	free
+.LBB1_6:
+	movl	-12(%rbp), %eax
+	movq	-8(%rbp), %rcx
+	movq	16(%rcx), %rcx
+	movq	-8(%rbp), %rdx
+	movq	8(%rdx), %rdx
+	movl	%eax, (%rcx,%rdx,4)
+	movq	-8(%rbp), %rcx
+	movq	8(%rcx), %rcx
+	addq	$1, %rcx
+	movq	-8(%rbp), %rdx
+	movq	%rcx, 8(%rdx)
+	addq	$48, %rsp
+	popq	%rbp
+	.cfi_def_cfa %rsp, 8
+	retq
+.Lfunc_end1:
+	.size	vecint_push_back, .Lfunc_end1-vecint_push_back
+	.cfi_endproc
+                                        # -- End function
+	.globl	destroy_vecint          # -- Begin function destroy_vecint
+	.p2align	4, 0x90
+	.type	destroy_vecint,@function
+destroy_vecint:                         # @destroy_vecint
+	.cfi_startproc
+# %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	16(%rax), %rax
+	movq	%rax, %rdi
+	callq	free
+	addq	$16, %rsp
+	popq	%rbp
+	.cfi_def_cfa %rsp, 8
+	retq
+.Lfunc_end2:
+	.size	destroy_vecint, .Lfunc_end2-destroy_vecint
+	.cfi_endproc
+                                        # -- End function
+	.globl	main                    # -- Begin function main
+	.p2align	4, 0x90
+	.type	main,@function
+main:                                   # @main
+	.cfi_startproc
+# %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$80, %rsp
+	leaq	-32(%rbp), %rsi
+	movl	$0, -4(%rbp)
+	movq	.L__const.main.nums, %rax
+	movq	%rax, -32(%rbp)
+	movq	.L__const.main.nums+8, %rax
+	movq	%rax, -24(%rbp)
+	movl	.L__const.main.nums+16, %ecx
+	movl	%ecx, -16(%rbp)
+	leaq	-56(%rbp), %rdi
+	movl	$20, %edx
+	callq	new_vecint
+	movq	$6, -64(%rbp)
+.LBB3_1:                                # =>This Inner Loop Header: Depth=1
+	cmpq	$200, -64(%rbp)
+	jae	.LBB3_4
+# %bb.2:                                #   in Loop: Header=BB3_1 Depth=1
+	movq	-64(%rbp), %rax
+                                        # kill: def $eax killed $eax killed $rax
+	leaq	-56(%rbp), %rdi
+	movl	%eax, %esi
+	callq	vecint_push_back
+# %bb.3:                                #   in Loop: Header=BB3_1 Depth=1
+	movq	-64(%rbp), %rax
+	addq	$1, %rax
+	movq	%rax, -64(%rbp)
+	jmp	.LBB3_1
+.LBB3_4:
+	movq	$0, -72(%rbp)
+.LBB3_5:                                # =>This Inner Loop Header: Depth=1
+	movq	-72(%rbp), %rax
+	cmpq	-48(%rbp), %rax
+	jae	.LBB3_8
+# %bb.6:                                #   in Loop: Header=BB3_5 Depth=1
+	movq	-72(%rbp), %rsi
+	movq	-40(%rbp), %rax
+	movq	-72(%rbp), %rcx
+	movl	(%rax,%rcx,4), %edx
+	movabsq	$.L.str, %rdi
+	movb	$0, %al
+	callq	printf
+# %bb.7:                                #   in Loop: Header=BB3_5 Depth=1
+	movq	-72(%rbp), %rax
+	addq	$1, %rax
+	movq	%rax, -72(%rbp)
+	jmp	.LBB3_5
+.LBB3_8:
+	movq	-48(%rbp), %rsi
+	movabsq	$.L.str.1, %rdi
+	movb	$0, %al
+	callq	printf
+	leaq	-56(%rbp), %rdi
+	movl	%eax, -76(%rbp)         # 4-byte Spill
+	callq	destroy_vecint
+	movl	-4(%rbp), %eax
+	addq	$80, %rsp
+	popq	%rbp
+	.cfi_def_cfa %rsp, 8
+	retq
+.Lfunc_end3:
+	.size	main, .Lfunc_end3-main
+	.cfi_endproc
+                                        # -- End function
+	.type	.L__const.main.nums,@object # @__const.main.nums
+	.section	.rodata,"a",@progbits
+	.p2align	4
+.L__const.main.nums:
+	.long	1                       # 0x1
+	.long	2                       # 0x2
+	.long	3                       # 0x3
+	.long	4                       # 0x4
+	.long	5                       # 0x5
+	.size	.L__const.main.nums, 20
+
+	.type	.L.str,@object          # @.str
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.L.str:
+	.asciz	"%zu: %d\n"
+	.size	.L.str, 9
+
+	.type	.L.str.1,@object        # @.str.1
+.L.str.1:
+	.asciz	"%zu\n"
+	.size	.L.str.1, 5
+
+	.ident	"clang version 10.0.0-4ubuntu1 "
+	.section	".note.GNU-stack","",@progbits
+	.addrsig
+	.addrsig_sym new_vecint
+	.addrsig_sym malloc
+	.addrsig_sym vecint_push_back
+	.addrsig_sym free
+	.addrsig_sym destroy_vecint
+	.addrsig_sym printf
